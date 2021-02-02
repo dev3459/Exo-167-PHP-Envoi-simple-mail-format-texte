@@ -6,11 +6,15 @@
  * 3. Déployez sur votre serveur et testez !
  */
 
-$from = '';
-$to = '';
-$message = 'Hello World, sending a simple mail !';
-// TODO Votre code ici.
-
+$from = 'adresse mail';
+$to = 'adresse mail';
+// $subjet = "Hello";
+// $message = 'Hello World, sending a simple mail !';
+// $headers = [
+//     'From' => "adresse mail<adresse mail>"
+// ];
+// // TODO Votre code ici.
+// mail($to, $subjet, $message, $headers);
 
 /**
  * 4. Commentez le code précédent, mais gardez les variables $from et $to
@@ -24,3 +28,20 @@ $message = 'Hello World, sending a simple mail !';
  *     N'écrasez pas les valeurs déjà existantes ( s'il y en a ).
  */
 // TODO Votre code ici.
+$subjet = "Hello 2";
+$message = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, molestiae dolore aut libero ducimus sit aliquid cum nobis repellendus veniam debitis necessitatibus eveniet? Laudantium atque quam placeat tempora, iure laborum? Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, molestiae dolore aut libero ducimus sit aliquid cum nobis repellendus veniam debitis necessitatibus eveniet? Laudantium atque quam placeat tempora, iure laborum? Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, molestiae dolore aut libero ducimus sit aliquid cum nobis repellendus veniam debitis necessitatibus eveniet? Laudantium atque quam placeat tempora, iure laborum?";
+$headers = [
+    'From' => "adresse mail<adresse mail>"
+];
+if(mail($to, $subjet, wordwrap($message), $headers)){
+    if(file_exists("mails.txt")){
+        $texte = file_get_contents("mails.txt");
+        file_put_contents("mails.txt", $texte."\n".$message." ".$to."\n");
+    }else{
+        file_put_contents("mails.txt", $message." ".$to."\n");
+    }
+
+    echo 'Le message à bien été envoyé. Merci !';
+}else{
+    echo "Une erreur est survenue lors de l'envoi du mail";
+}
